@@ -28,20 +28,26 @@ var letterCombinations = function (digits) {
         digitsToLetterArray.push(base.get(element))
     });
 
-    for (let i = 0; i < digitsToLetterArray.length-1; i++) {
-        const first = digitsToLetterArray[i];
-        const second = digitsToLetterArray[i+1];
-        while (condition) {
-            first.forEach(firstItem => {
-                second.forEach(secondItem => {
-                    firstItem+secondItem
-                });
+    let index = 0
+    let finalMap = new Map([
+        [0, digitsToLetterArray[index]]
+    ])
+    while (index < digitsToLetterArray.length - 1) {
+        let nowArray = finalMap.get(index)
+        let itemArray = digitsToLetterArray[index + 1]
+        let finalItemArray = []
+        itemArray.forEach(element => {
+            nowArray.forEach(nowItem => {
+                finalItemArray.push(nowItem + element)
             });
-        }
-        
+        });
+        index++
+        finalMap.set(index, finalItemArray)
     }
-
+    console.log(finalMap.get(index))
+    return finalMap.get(index)
 
 };
 // @lc code=end
-
+let digits = "2"
+letterCombinations(digits)
