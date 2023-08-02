@@ -13,10 +13,6 @@
  * }
  */
 
-function ListNode(val, next) {
-    this.val = (val === undefined ? 0 : val)
-    this.next = (next === undefined ? null : next)
-}
 /**
  * @param {ListNode} list1
  * @param {ListNode} list2
@@ -24,11 +20,19 @@ function ListNode(val, next) {
  */
 var mergeTwoLists = function (list1, list2) {
     let noNode = list2
-    while (list1.next) {
+
+    if (list2 === null) {
+        return list1;
+    }
+
+    if (list1 === null) {
+        return list2;
+    }
+    while (list1) {
         let list2 = noNode
         let flag = true;
-        while (list2.next && flag) {
-            if (list1.val >= list2.val) {
+        while (list2 && flag) { 
+            if (list1.val >= list2.val && (list2.next ? list1.val <= list2.next.val : true)) {
                 let temp = list2.next
                 list2.next = new ListNode(list1.val)
                 list2.next.next = temp
@@ -39,7 +43,7 @@ var mergeTwoLists = function (list1, list2) {
         }
         list1 = list1.next
     }
-    console.log(noNode)
+    return noNode
 };
 // @lc code=end
 
